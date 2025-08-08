@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BIGGY — каталог товаров</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@1,900&family=Montserrat:wght@400;600&family=Red+Hat+Text:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --black: #000000;
+    --white: #FFFFFF;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--white);
+    color: var(--black);
+  }
+  a {
+    color: var(--black);
+    text-decoration: none;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+    border-bottom: 2px solid var(--black);
+    user-select: none;
+    position: sticky;
+    top: 0;
+    background: var(--white);
+    z-index: 100;
+  }
+  .nav-left {
+    display: flex;
+    gap: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .nav-left a:hover {
+    color: gray;
+  }
+  .logo {
+    font-family: 'Kanit', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 44px;
+    letter-spacing: 3px;
+    user-select: text;
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .nav-right button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+  }
+  .nav-right button:hover {
+    color: gray;
+  }
+  .icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  main {
+    max-width: 1200px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+  }
+  .banner {
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 60px 30px;
+    text-align: center;
+    user-select: none;
+  }
+  .banner h1 {
+    font-family: 'Kanit', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 48px;
+    margin: 0 0 14px;
+    letter-spacing: 3px;
+  }
+  .banner p {
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0 0 28px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 14px 36px;
+    border: 2px solid var(--white);
+    background: transparent;
+    color: var(--white);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    user-select: none;
+  }
+  .btn:hover {
+    background-color: var(--white);
+    color: var(--black);
+  }
+  .products {
+    margin-top: 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+  }
+  .product-card {
+    border: 2px solid var(--black);
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 460px;
+    cursor: pointer;
+  }
+  .product-image {
+    height: 320px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-bottom: 18px;
+  }
+  .product-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    color: var(--black);
+    text-transform: uppercase;
+    user-select: text;
+  }
+  .product-price {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 20px;
+    user-select: text;
+  }
+  .about-section {
+    margin-top: 80px;
+    padding: 40px 30px;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 6px;
+    user-select: none;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: 'Red Hat Text', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  .contacts {
+    margin-top: 60px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    user-select: text;
+  }
+  .contacts a {
+    font-weight: 600;
+    color: var(--black);
+    margin: 0 12px;
+    text-decoration: underline;
+  }
+  footer {
+    border-top: 2px solid var(--black);
+    padding: 24px 20px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  /* Модалка товара */
+  #productModal {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    border: 3px solid var(--black);
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 300;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  }
+  #productModal.show {
+    display: block;
+  }
+  #productModal img {
+    max-width: 100%;
+    border-radius: 6px;
+    margin-bottom: 15px;
+  }
+  #productModal h3 {
+    margin: 0 0 10px 0;
+    font-family: 'Kanit', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+  }
+  #productModal p {
+    font-family: 'Red Hat Text', sans-serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  #productModal .price {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  #productModal button.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  /* Мобильная адаптивность */
+  @media (max-width: 720px) {
+    header {
+      flex-wrap: wrap;
+      padding: 12px 20px;
+    }
+    .nav-left {
+      order: 3;
+      width: 100%;
+      justify-content: center;
+      margin-top: 12px;
+      gap: 18px;
+    }
+    .logo {
+      order: 2;
+      flex-grow: 1;
+      text-align: center;
+      font-size: 36px;
+    }
+    .nav-right {
+      order: 1;
+      gap: 12px;
+    }
+    main {
+      margin: 30px auto 40px;
+    }
+    .banner h1 {
+      font-size: 32px;
+    }
+    .banner p {
+      font-size: 16px;
+    }
+    .products {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav-left" aria-label="Основное меню">
+    <a href="#collections">Коллекции</a>
+    <a href="#men">Мужское</a>
+    <a href="#accessories">Аксессуары</a>
+    <a href="#equipment">Экипировка</a>
+  </nav>
+
+  <div class="logo" aria-label="Логотип BIGGY">BIGGY</div>
+
+  <nav class="nav-right" aria-label="Меню пользователя">
+    <button aria-label="Личный кабинет" onclick="alert('Вход в личный кабинет скоро!')">
+      <svg class="icon" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20c0-3.333 4-5 6-5s6 1.667 6 5"/></svg> Личный
+    </button>
+    <button aria-label="Избранное" onclick="alert('Избранное пока пусто')">
+      <svg class="icon" fill="none" viewBox="0 0 24 24"><path d="M12 21l-1.45-1.318C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.182L12 21z"/></svg> Избранное
+    </button>
+    <button aria-label="Корзина" onclick="toggleCart()">
+      <svg class="icon" fill="none" viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12l-1.5-9z"/><circle cx="9" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg> Корзина (<span id="cart-count">0</span>)
+    </button>
+    <button aria-label="Поиск" onclick="toggleSearch()">
+      <svg class="icon" fill="none" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Поиск
+    </button>
+  </nav>
+</header>
+
+<main>
+  <section class="banner" id="banner" role="banner" aria-label="Главный баннер">
+    <h1>НОВАЯ КОЛЛЕКЦИЯ BOXING</h1>
+    <p>Сила. Стиль. BIGGY.</p>
+    <button class="btn" onclick="alert('Скоро магазин!')">Смотреть коллекцию</button>
+  </section>
+
+  <section class="products" id="collections" aria-label="Коллекции товаров">
+    <!-- Карточки товаров будут вставлены JS -->
+  </section>
+
+  <section class="about-section" id="about" aria-label="О бренде BIGGY">
+    BIGGY — бренд, который вырос из спорта. Мы делаем простую, честную одежду для тех, кто не гонится за трендами, а живёт делом.<br />
+    Качество, функциональность и узнаваемый минимализм — это наша философия.
+  </section>
+
+  <section class="contacts" id="contacts" aria-label="Контакты">
+    <p>Telegram: <a href="https://t.me/BIGGY" target="_blank" rel="noopener noreferrer">@BIGGY</a> &nbsp; • &nbsp; Instagram: <a href="#" aria-label="Instagram">@biggystyle</a></p>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> BIGGY — Все права защищены
+</footer>
+
+<!-- Модальное окно товара -->
+<div id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <button class="close-btn" aria-label="Закрыть окно" onclick="closeModal()">×</button>
+  <img src="" alt="" id="modalImage" />
+  <h3 id="modalTitle"></h3>
+  <p id="modalDesc"></p>
+  <div class="price" id="modalPrice"></div>
+  <button class="btn" id="modalBuyBtn">Купить</button>
+</div>
+
+<!-- Корзина -->
+<div id="cart" style="display:none; position: fixed; top: 80px; right: 20px; width: 320px; max-height: 70vh; overflow-y: auto; background: #fff; border: 2px solid #000; border-radius: 8px; padding: 20px; z-index: 200;">
+  <h2 style="margin-top:0; font-family:'Kanit', sans-serif; font-weight:900;">Корзина</h2>
+  <ul id="cart-items" style="list-style:none; padding:0; margin:0;"></ul>
+  <div style="margin-top: 15px; font-weight: 600; font-size: 16px;">Итого: <span id="cart-total">0</span> ₽</div>
+  <button onclick="checkout()" style="margin-top:15px; padding: 10px 20px; font-weight: 600; background: black; color: white; border:none; cursor:pointer; width:100%; text-transform: uppercase;">Оформить заказ</button>
+  <button onclick="toggleCart()" style="margin-top: 10px; padding: 6px 20px; background: transparent; border: 2px solid black; cursor: pointer; width:100%; text-transform: uppercase;">Закрыть</button>
+</div>
+
+<!-- Поиск -->
+<div id="searchBox" style="display:none; position: fixed; top: 80px; right: 20px; width: 320px; background: white; border: 2px solid black; border-radius: 8px; padding: 15px; z-index: 210;">
+  <input type="text" id="searchInput" placeholder="Поиск по товарам..." style="width:100%; padding:8px; font-size:14px; border:1px solid #ccc; border-radius:4px;" oninput="searchProducts(this.value)" />
+  <ul id="searchResults" style="list-style:none; padding:10px 0 0 0; margin:0; max-height: 200px; overflow-y: auto;"></ul>
+</div>
+
+<script>
+  const products = [
+    {
+      id: 1,
+      title: "Футболка Boxing Classic",
+      price: 1990,
+      img: "https://i.imgur.com/fP3kxQO.jpg",
+      desc: "Футболка из 100% хлопка, идеально подходит для тренировок и повседневной носки."
+    },
+    {
+      id: 2,
+      title: "Худи BIGGY Black",
+      price: 3990,
+      img: "https://i.imgur.com/1hjptgi.jpg",
+      desc: "Тёплое худи с крупным логотипом BIGGY, стиль и комфорт в одном."
+    },
+    {
+      id: 3,
+      title: "Боксерские перчатки PRO",
+      price: 5490,
+      img: "https://i.imgur.com/0TrN58r.jpg",
+      desc: "Профессиональные перчатки для бокса с отличной амортизацией и защитой."
+    },
+    {
+      id: 4,
+      title: "Кепка BIGGY Snapback",
+      price: 1490,
+      img: "https://i.imgur.com/WFqXjxl.jpg",
+      desc: "Классическая кепка с фирменным вышитым логотипом BIGGY."
+    }
+  ];
+
+  let cart = JSON.parse(localStorage.getItem('biggyCart')) || [];
+
+  function saveCart() {
+    localStorage.setItem('biggyCart', JSON.stringify(cart));
+  }
+
+  function updateCart() {
+    const cartCountEl = document.getElementById('cart-count');
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+
+    cartCountEl.textContent = cart.reduce((acc, item) => acc + item.qty, 0);
+    cartItemsEl.innerHTML = '';
+
+    let total = 0;
+
+    cart.forEach(item => {
+      const prod = products.find(p => p.id === item.id);
+      if (!prod) return;
+
+      total += prod.price * item.qty;
+
+      const li = document.createElement('li');
+      li.style.borderBottom = '1px solid #ccc';
+      li.style.padding = '10px 0';
+      li.style.display = 'flex';
+      li.style.justifyContent = 'space-between';
+      li.style.alignItems = 'center';
+
+      li.innerHTML = `
+        <div>
+          <strong>${prod.title}</strong><br/>
+          <small>${prod.price} ₽ × ${item.qty} шт.</small>
+        </div>
+        <div>
+          <button onclick="changeQty(${item.id}, -1)" aria-label="Уменьшить количество">−</button>
+          <button onclick="changeQty(${item.id}, 1)" aria-label="Увеличить количество">+</button>
+          <button onclick="removeFromCart(${item.id})" aria-label="Удалить товар">×</button>
+        </div>
+      `;
+
+      cartItemsEl.appendChild(li);
+    });
+
+    cartTotalEl.textContent = total.toLocaleString('ru-RU');
+
+    saveCart();
+  }
+
+  function changeQty(id, delta) {
+    const idx = cart.findIndex(item => item.id === id);
+    if (idx === -1) return;
+    cart[idx].qty += delta;
+    if (cart[idx].qty < 1) {
+      cart.splice(idx, 1);
+    }
+    updateCart();
+  }
+
+  function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCart();
+  }
+
+  function addToCart(id) {
+    const idx = cart.findIndex(item => item.id === id);
+    if (idx === -1) {
+      cart.push({id: id, qty: 1});
+    } else {
+      cart[idx].qty++;
+    }
+    updateCart();
+  }
+
+  // Рендер карточек товаров
+  function renderProducts() {
+    const container = document.querySelector('.products');
+    container.innerHTML = '';
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-pressed', 'false');
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.title}" class="product-image" />
+        <h2 class="product-title">${p.title}</h2>
+        <div class="product-price">${p.price.toLocaleString('ru-RU')} ₽</div>
+        <button class="btn" onclick="addToCart(${p.id}); event.stopPropagation();">Добавить в корзину</button>
+      `;
+      card.addEventListener('click', () => openModal(p.id));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          openModal(p.id);
+          e.preventDefault();
+        }
+      });
+      container.appendChild(card);
+    });
+  }
+
+  // Модалка
+  const modal = document.getElementById('productModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalPrice = document.getElementById('modalPrice');
+  const modalBuyBtn = document.getElementById('modalBuyBtn');
+
+  function openModal(id) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    modalImage.src = product.img;
+    modalImage.alt = product.title;
+    modalTitle.textContent = product.title;
+    modalDesc.textContent = product.desc;
+    modalPrice.textContent = product.price.toLocaleString('ru-RU') + ' ₽';
+    modalBuyBtn.onclick = () => {
+      addToCart(id);
+      closeModal();
+      alert('Товар добавлен в корзину');
+    };
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  // Корзина
+  const cartEl = document.getElementById('cart');
+  function toggleCart() {
+    if (cartEl.style.display === 'block') {
+      cartEl.style.display = 'none';
+      document.body.style.overflow = '';
+    } else {
+      cartEl.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      updateCart();
+    }
+  }
+
+  // Поиск
+  const searchBox = document.getElementById('searchBox');
+  function toggleSearch() {
+    if (searchBox.style.display === 'block') {
+      searchBox.style.display = 'none';
+    } else {
+      searchBox.style.display = 'block';
+      document.getElementById('searchInput').focus();
+    }
+  }
+
+  function searchProducts(query) {
+    const resultsEl = document.getElementById('searchResults');
+    resultsEl.innerHTML = '';
+    if (!query) return;
+
+    const filtered = products.filter(p => p.title.toLowerCase().includes(query.toLowerCase()));
+
+    filtered.forEach(p => {
+      const li = document.createElement('li');
+      li.style.padding = '6px 0';
+      li.style.borderBottom = '1px solid #ccc';
+      li.textContent = `${p.title} — ${p.price.toLocaleString('ru-RU')} ₽`;
+      li.tabIndex = 0;
+      li.style.cursor = 'pointer';
+      li.onclick = () => openModal(filtered.find(x => x.title === li.textContent.split(' — ')[0]).id);
+      li.onkeydown = e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          li.click();
+          e.preventDefault();
+        }
+      };
+      resultsEl.appendChild(li);
+    });
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      alert('Корзина пуста!');
+      return;
+    }
+    alert('Спасибо за заказ! Скоро свяжемся с вами.');
+    cart = [];
+    updateCart();
+    toggleCart();
+  }
+
+  // Обновить год в футере
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Запуск
+  renderProducts();
+  updateCart();
+</script>
+
+</body>
+</html>
